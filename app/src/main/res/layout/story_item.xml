@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="24dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/story_circle"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/app_story_circle_bg_outline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/story_user_img"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="4dp"
+        app:actualImageScaleType="fitXY"
+        app:failureImage="@drawable/app_default_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/story_circle"
+        app:layout_constraintEnd_toEndOf="@+id/story_circle"
+        app:layout_constraintStart_toStartOf="@+id/story_circle"
+        app:layout_constraintTop_toTopOf="@+id/story_circle"
+        app:placeholderImage="@drawable/app_default_profile"
+        app:placeholderImageScaleType="fitXY"
+        app:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/story_user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/story_circle"
+        app:layout_constraintStart_toStartOf="@+id/story_circle"
+        app:layout_constraintTop_toBottomOf="@+id/story_circle"
+        app:lineHeight="24dp"
+        tools:text="TextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

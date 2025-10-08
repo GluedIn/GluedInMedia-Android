@@ -1,0 +1,37 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Checked -->
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- Outer circle (border/background) -->
+            <item>
+                <shape android:shape="oval">
+                    <stroke android:width="1dp" android:color="#bcbcbc"/>
+                    <solid android:color="@android:color/transparent"/>
+                    <size android:width="22dp" android:height="22dp"/>
+                </shape>
+            </item>
+
+            <!-- Inner fill circle with 2dp padding -->
+            <item
+                android:left="4dp"
+                android:top="4dp"
+                android:right="4dp"
+                android:bottom="4dp">
+                <shape android:shape="oval">
+                    <solid android:color="#bcbcbc"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Unchecked -->
+    <item>
+        <shape android:shape="oval">
+            <stroke android:width="1dp" android:color="#bcbcbc"/> <!-- border -->
+            <solid android:color="@android:color/transparent"/>
+            <size android:width="22dp" android:height="22dp"/>
+        </shape>
+    </item>
+
+</selector>

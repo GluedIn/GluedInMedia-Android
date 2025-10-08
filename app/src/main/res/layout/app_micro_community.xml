@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gi_white"
+    tools:context=".MicroCommunityActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/gi_dp10"
+        android:src="@drawable/plus_saw_presentation_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/gi_black" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="@dimen/gi_dp24"
+        android:fontFamily="@font/sf_semibold"
+        android:gravity="start"
+        android:maxLines="1"
+        android:paddingVertical="10dp"
+        android:text="The Rising Voice"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+        app:layout_constraintStart_toEndOf="@+id/ivBack"
+        app:layout_constraintTop_toTopOf="@+id/ivBack" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBack">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/gi_dp20">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/video_frame"
+                android:layout_width="0dp"
+                android:layout_height="226dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_rectangle_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_app_pause"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCreator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/gi_dp16"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_rectangle_bg"
+                android:backgroundTint="@color/primary_color"
+                android:paddingHorizontal="@dimen/gi_dp20"
+                android:paddingVertical="@dimen/gi_dp10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/video_frame">
+
+                <TextView
+                    android:id="@+id/tvCreatorTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_app_plus"
+                    android:drawablePadding="20dp"
+                    android:gravity="center_vertical"
+                    android:lineHeight="25dp"
+                    android:maxLines="1"
+                    android:text="Create Shorts"
+                    android:textColor="@color/gi_white"
+                    android:textSize="@dimen/gi_sp16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutChallengeCreator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/gi_dp20"
+                android:layout_marginTop="@dimen/gi_dp20"
+                android:background="@drawable/shape_rectangle_bg"
+                android:backgroundTint="@color/primary_color"
+                android:paddingHorizontal="@dimen/gi_dp20"
+                android:paddingVertical="@dimen/gi_dp14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutCreator">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/challengeImage"
+                    android:layout_width="55dp"
+                    android:layout_height="54dp"
+                    app:cardCornerRadius="@dimen/gi_dp5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/ivChallengeImage"
+                        android:layout_width="55dp"
+                        android:layout_height="54dp"
+                        app:actualImageResource="@drawable/ic_challenge_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/description"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="@dimen/gi_dp20"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivChallengePlus"
+                    app:layout_constraintStart_toEndOf="@+id/challengeImage"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvChallengeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_semibold"
+                        android:maxLines="1"
+                        android:textColor="@color/gi_white"
+                        android:textSize="16sp"
+                        tools:text="#FanAnalysis Challenge" />
+
+                    <TextView
+                        android:id="@+id/tvDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_semibold"
+                        android:maxLines="1"
+                        android:text="Analyse the show and earn Reward points"
+                        android:textColor="@color/gi_white"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivChallengePlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_app_plus"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvWidgetTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gi_dp6"
+                android:layout_marginTop="@dimen/gi_dp6"
+                android:fontFamily="@font/sf_semibold"
+                android:padding="@dimen/gi_dp10"
+                android:text="@string/related_shorts"
+                android:textColor="@color/gi_black"
+                android:textSize="@dimen/gi_sp16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutChallengeCreator" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChallenge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/gi_dp16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWidgetTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnViewLeaderboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/gi_dp16"
+                android:layout_marginTop="@dimen/gi_dp20"
+                android:background="@drawable/app_square_outline"
+                android:fontFamily="@font/sf_semibold"
+                android:gravity="center"
+                android:padding="@dimen/gi_dp10"
+                android:text="@string/view_leaderboard"
+                android:textColor="@color/gi_theme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvChallenge" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnRewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/gi_dp16"
+                android:layout_marginTop="@dimen/gi_dp20"
+                android:background="@drawable/app_square_outline"
+                android:fontFamily="@font/sf_semibold"
+                android:gravity="center"
+                android:padding="@dimen/gi_dp10"
+                android:text="Launch Rewards"
+                android:textColor="@color/gi_theme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnViewLeaderboard" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/gi_dp16"
+        android:textColor="@color/gi_black"
+        android:textSize="@dimen/gi_sp16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="84dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/app_cart_item_bg">
+
+    <!-- Product Image -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeholder"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="@dimen/gi_dp8"
+        android:background="@drawable/app_cart_item_boarder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/productImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            app:failureImage="@drawable/app_cart_item_thum"
+            app:placeholderImage="@drawable/app_cart_item_thum"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCornerRadius="@dimen/gi_dp10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Product Name -->
+    <com.gluedin.base.presentation.customView.GluedInSemiboldTextView
+        android:id="@+id/tvProductName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gi_dp16"
+        android:layout_marginTop="@dimen/gi_dp2"
+        android:layout_marginEnd="@dimen/gi_dp16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Brightening Eye Masks"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/quantityLayout"
+        app:layout_constraintEnd_toStartOf="@id/quantityLayout"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/placeholder"
+        app:layout_constraintTop_toTopOf="@id/placeholder" />
+
+    <com.gluedin.base.presentation.customView.GluedInSemiboldTextView
+        android:id="@+id/variantTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvProductPrice"
+        app:layout_constraintEnd_toEndOf="@+id/quantityLayout"
+        app:layout_constraintEnd_toStartOf="@id/quantityLayout"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/tvProductName"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName"
+        tools:text="Color :" />
+
+    <com.gluedin.base.presentation.customView.GluedInSemiboldTextView
+        android:id="@+id/variantName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gi_dp8"
+        android:layout_marginEnd="@dimen/gi_dp16"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvProductPrice"
+        app:layout_constraintEnd_toEndOf="@+id/quantityLayout"
+        app:layout_constraintEnd_toStartOf="@id/quantityLayout"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/variantTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName"
+        tools:text="Black" />
+    <!-- Product Price -->
+    <com.gluedin.base.presentation.customView.PlusSAWMediumTextView
+        android:id="@+id/tvProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gi_dp16"
+        android:layout_marginBottom="@dimen/gi_dp2"
+        android:text="$46.00"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/placeholder"
+        app:layout_constraintStart_toEndOf="@id/placeholder" />
+
+    <!-- Quantity & Delete Layout -->
+    <LinearLayout
+        android:id="@+id/quantityLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/app_cart_item_quantity_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/gi_dp3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/placeholder">
+
+        <!-- Minus Button -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnPlus"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/app_cart_item_count_bg"
+            android:src="@drawable/app_cart_ic_add"
+            app:tint="@android:color/white" />
+
+        <!-- Quantity -->
+        <com.gluedin.base.presentation.customView.PlusSAWMediumTextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+        <!-- Plus Button -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnMinus"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/app_cart_item_count_bg"
+            android:src="@drawable/app_cart_ic_remove"
+            app:tint="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Delete Button -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gi_dp8"
+        android:layout_marginEnd="@dimen/gi_dp16"
+        android:background="@android:color/transparent"
+        android:src="@drawable/app_cart_ic_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantityLayout"
+        app:tint="@android:color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Gluedin Media Sample</string>
+    <string name="top_release">Top Release</string>
+    <string name="playflix">PlayFlix</string>
+    <string name="search">Search...</string>
+    <string name="the_rising_voice">The Rising Voice</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="latest_movies_just_for">Latest Movies Just For</string>
+    <string name="latest_stories">Latest Stories</string>
+    <string name="popular_in_comedy">Popular in Comedy</string>
+    <string name="latest_micro_drama">Latest Micro Drama</string>
+    <string name="non_stop_action">Non Stop Action</string>
+    <string name="trending_shorts">Trending Shorts</string>
+    <string name="view_leaderboard">View Leaderboard</string>
+    <string name="related_shorts">Related Shorts</string>
+</resources>

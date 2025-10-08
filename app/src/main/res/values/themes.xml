@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GluedinSimple" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.GluedinSimple" parent="Base.Theme.GluedinSimple" >
+        <!-- System bar background color -->
+        <item name="android:statusBarColor">#FFFFFF</item>
+
+        <!-- Optional: control status bar icon brightness -->
+        <!-- This affects light/dark icons -->
+        <item name="android:windowLightStatusBar">true</item> <!-- for dark icons -->
+    </style>
+</resources>
