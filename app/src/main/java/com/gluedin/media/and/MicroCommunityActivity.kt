@@ -3,7 +3,6 @@ package com.gluedin.media.and
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
@@ -16,36 +15,45 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.billingclient.api.BillingClient
 import com.gluedin.GluedInInitializer
+import com.gluedin.callback.AdsStatus
+import com.gluedin.callback.GIAdsCallback
 import com.gluedin.callback.GIAssetCallback
 import com.gluedin.callback.GIInitCallback
+import com.gluedin.callback.GIPaymentCallback
 import com.gluedin.callback.GISdkCallback
 import com.gluedin.callback.PaymentMethod
 import com.gluedin.callback.PaymentStatus
 import com.gluedin.callback.SDKInitStatus
+import com.gluedin.callback.SubscriptionDetails
 import com.gluedin.callback.UserAction
 import com.gluedin.callback.UserAuthStatus
-import com.gluedin.data.network.response.SDKInitException
 import com.gluedin.domain.entities.challengeDetail.widgetConfig.WidgetConfigDetails
 import com.gluedin.domain.entities.config.ShareData
 import com.gluedin.domain.entities.feed.AssetsInformation
 import com.gluedin.domain.entities.feed.VideoInfo
 import com.gluedin.domain.entities.feed.ads.AdsRequestParams
-import com.gluedin.domain.entities.feed.ads.AdsType
-import com.gluedin.domain.entities.feed.series.transaction.SeriesTransactionRequest
+import com.gluedin.domain.entities.feed.ads.BannerAdsType
+import com.gluedin.domain.entities.feed.ads.InterstitialAdsType
+import com.gluedin.domain.entities.feed.ads.NativeAdsType
 import com.gluedin.exception.GluedInSdkException
 import com.gluedin.feed.R
+import com.gluedin.media.and.AppConstants.assetId
 import com.gluedin.media.and.adapter.SampleVideoAdapter
 import com.gluedin.media.and.adapter.SampleVideoListener
+import com.gluedin.media.and.ads.BannerAdLoader
+import com.gluedin.media.and.ads.InterstitialAdManager
+import com.gluedin.media.and.ads.NativeAdKotlinFragment
+import com.gluedin.media.and.ads.RewardedInterstitialManager
 import com.gluedin.media.and.databinding.AppMicroCommunityBinding
-import com.gluedin.presentation.utils.DialogUtil
-import com.gluedin.presentation.utils.TimeUtility
-import com.gluedin.presentation.utils.extensions.isNetworkAvailable
-import com.gluedin.media.and.AppConstants.assetId
 import com.gluedin.media.and.payment.BillingManager
 import com.gluedin.media.and.shopify.ShopifyCartManager
 import com.gluedin.media.and.shopify.ViewCartActivity
 import com.gluedin.media.and.shopify.WebViewActivity
+import com.gluedin.presentation.utils.DialogUtil
+import com.gluedin.presentation.utils.TimeUtility
+import com.gluedin.presentation.utils.extensions.isNetworkAvailable
 import com.gluedin.usecase.challengeDetail.WidgetInteractor
 import com.gluedin.usecase.config.AppConfigInteractor
 import com.gluedin.usecase.config.LaunchConfig
@@ -69,6 +77,10 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
         applySystemBottomMargin()
         binding.progressBar.isVisible = true
         initListener()
+        binding?.mainLayout?.isVisible = false
+        binding?.progressBar?.isVisible = true
+        binding?.layoutChallengeCreator?.isVisible = false
+        binding?.btnViewLeaderboard?.isVisible = false
         launchSDKSilently()
     }
 
@@ -176,6 +188,8 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
                         )
                             .show()
                     }
+
+                    else -> {}
                 }
             }
 
@@ -195,33 +209,6 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
                 ).show()
             }
 
-            override fun onAdsRequest(
-                adsType: AdsType, adsRequestParams: AdsRequestParams
-            ): Fragment? {
-                when (adsType) {
-                    AdsType.AD_MOB_BANNER -> {
-                        return null
-                    }
-
-                    AdsType.AD_MOB_INTERSTITIAL -> {
-                        return null
-                    }
-
-                    AdsType.AD_MOB_NATIVE, AdsType.GAM_NATIVE -> {
-                        return null
-                    }
-
-                    AdsType.GAM_BANNER -> {
-                        return null
-                    }
-                }
-            }
-
-            override fun onDiscoverAdsRequest(
-                adsType: AdsType,
-                adsRequestParams: AdsRequestParams,
-                view: BannerAdView
-            ) = Unit
 
             override fun onRewardClick() {
                 Toast.makeText(
@@ -232,49 +219,6 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
 
             override fun onWatchNowAction(deeplink: String) = Unit
 
-            override fun onInitiateSeriesPurchase(
-                paymentMethod: PaymentMethod,
-                inAppSkuId: String?,
-                purchaseUrl: String?,
-                seriesId: String?,
-                episodeNumber: Int,
-                onNotifyPaymentResult: (PaymentStatus) -> Unit
-            ) {
-                if (PaymentMethod.IN_APP_PURCHASE == paymentMethod) {
-                    BillingManager.init(
-                        activity = this@MicroCommunityActivity,
-                        skuId = inAppSkuId.orEmpty(),
-                        seriesId = seriesId,
-                        onNotifyPaymentResult
-                    )
-                } else if (PaymentMethod.SUBSCRIPTION_PLAN == paymentMethod) {
-                    Toast.makeText(
-                        this@MicroCommunityActivity,
-                        "onPaywallActionClicked seriesId :$seriesId \n currentEpisode : $episodeNumber \n deeplink : $purchaseUrl",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.d(
-                        "onPaywallActionClicked",
-                        "onPaywallActionClicked seriesId :$seriesId \n currentEpisode : $episodeNumber \n deeplink : $purchaseUrl"
-                    )
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(purchaseUrl.orEmpty()))
-                    try {
-                        startActivity(browserIntent)
-                    } catch (e: Exception) {
-                        DialogUtil.showToast(
-                            this@MicroCommunityActivity,
-                            getString(R.string.gluedin_common_invalid_url)
-                        )
-                    }
-                } else {
-                    Toast.makeText(
-                        this@MicroCommunityActivity,
-                        "onSelectPaymentMethod seriesId :$seriesId \n paymentUrl : $purchaseUrl \n deeplink : $purchaseUrl",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
         }
 
 
@@ -282,10 +226,11 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
             .setSdkCallback(mGISdkCallback)
             .setSdkInitCallback(mGIInitCallback)
             .setGIAssetCallback(giECommerceCallback)
+            .setGIAdsCallback(giAdsCallBack)
+            .setGIPaymentCallback(giPaymentCallBack)
             .setLogEnabled(true, Log.DEBUG)
             .setHttpLogEnabled(true, 3)
             .setApiAndSecret(AppConstants.API_KEY, AppConstants.SECRET_KEY)
-            .setFeedType(GluedInInitializer.Configurations.FeedType.VERTICAL)
             .setPreferredLanguage(AppConstants.APP_LANGUAGE)
             .create()
 
@@ -465,10 +410,10 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
                 ShopifyCartManager.init(this@MicroCommunityActivity)
                 callback?.let {
                     ShopifyCartManager.showProductDetails(
-                        context, assetId.toString(),
-                        it
+                        context, assetId.toString(), it
                     )
                 }
+
             }
         }
 
@@ -493,5 +438,266 @@ class MicroCommunityActivity : AppCompatActivity(), SampleVideoListener {
             startActivity(intent)
         }
 
+    }
+
+    val giAdsCallBack = object : GIAdsCallback {
+        override fun onNativeRequest(
+            adsType: NativeAdsType, adsRequestParams: AdsRequestParams
+        ): Fragment? {
+            when (adsType) {
+                NativeAdsType.AD_MOB_NATIVE, NativeAdsType.GAM_NATIVE -> {
+                    return NativeAdKotlinFragment(
+                        adsType, adsRequestParams, this@MicroCommunityActivity.application
+                    )
+                }
+            }
+        }
+
+        override fun onBannerAdsRequest(
+            adsType: BannerAdsType, adsRequestParams: AdsRequestParams, view: BannerAdView?
+        ) {
+            view?.let {
+                BannerAdLoader(view.context, it, adsType, adsRequestParams).loadAd()
+            }
+
+        }
+
+        override fun onInterstitialAdsRequest(
+            adsType: InterstitialAdsType, adsRequestParams: AdsRequestParams
+        ) {
+            InterstitialAdManager.loadAndShow(
+                this@MicroCommunityActivity, adsRequestParams.adsId
+            )
+        }
+
+    }
+    val giPaymentCallBack = object : GIPaymentCallback {
+        override fun onInitiateSeriesPurchase(
+            paymentMethod: PaymentMethod,
+            inAppSkuId: String?,
+            basePlanId: String?,
+            offerId: String?,
+            purchaseUrl: String?,
+            seriesId: String?,
+            episodeNumber: Int,
+            packageId: String,
+            userId: String,
+            onNotifyPaymentResult: (status: PaymentStatus, String, String, PaymentMethod) -> Unit
+        ) {
+
+            // Handle payments (in-app or subscription)
+            if (PaymentMethod.IN_APP_PURCHASE == paymentMethod) {
+                /*
+                  //TODO:  Enable this method for the actual use case.
+                  callBillingManager(
+                          inAppSkuId,
+                          basePlanId,
+                          purchaseUrl,
+                          seriesId,
+                          packageId,
+                          userId,
+                          paymentMethod,
+                          onNotifyPaymentResult
+                      )
+                 */
+
+                Toast.makeText(
+                    this@MicroCommunityActivity,
+                    "In-app purchases haven’t been configured yet.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            } else if (PaymentMethod.SUBSCRIPTION_PLAN == paymentMethod) {
+                /*
+                 //TODO: Enable this method for the actual use case.
+                   callBillingManagerForSubscription(
+                                    inAppSkuId,
+                                    basePlanId,
+                                    purchaseUrl,
+                                    seriesId,
+                                    packageId,
+                                    userId,
+                                    paymentMethod,
+                                    onNotifyPaymentResult,
+                                )
+                */
+                Toast.makeText(
+                    this@MicroCommunityActivity,
+                    "Subscription hasn’t been configured yet.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (PaymentMethod.PAYMENT_GATEWAY == paymentMethod) {
+                // Open browser with subscription deeplink
+                Toast.makeText(
+                    this@MicroCommunityActivity,
+                    "onSelectPaymentMethod seriesId :$seriesId \n paymentUrl : $purchaseUrl \n deeplink : $purchaseUrl",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    this@MicroCommunityActivity,
+                    "Other Payment Method",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        override fun onRewardedAdRequested(
+            adUnitID: String,
+            adsType: String,
+            seriesId: String?,
+            onNotifyAdsResult: (AdsStatus) -> Unit
+        ) {
+            rewardedInterstitialAd(adUnitID, adsType, seriesId, onNotifyAdsResult)
+        }
+
+        override fun onProductDetailsFetched(
+            inAppSkuId: List<String>?,
+            paymentMethod: PaymentMethod,
+            onNotifyPriceResult: (Map<String, Any?>) -> Unit
+        ) {
+            if (PaymentMethod.IN_APP_PURCHASE == paymentMethod) {
+                /* TODO: Enable this method to initiate Purchase from Google Play Store. */
+
+//                 inAppSkuId?.let {
+//                       fetchPricePartsForSkus(
+//                           inAppSkuId,
+//                           BillingClient.ProductType.INAPP,
+//                           onNotifyPriceResult
+//                       )
+//                   }
+            } else if (PaymentMethod.SUBSCRIPTION_PLAN == paymentMethod) {
+                /* TODO: Enable this method to initiate Purchase from Google Play Store. */
+
+//                inAppSkuId?.let {
+//                    fetchPricePartsForSkus(
+//                        it,
+//                        BillingClient.ProductType.SUBS,
+//                        onNotifyPriceResult
+//                    )
+//                }
+            }
+        }
+
+        override fun onManageSubscription(
+            paymentMethod: PaymentMethod,
+            inAppSkuId: String,
+            userId: String,
+            onNotifyResult: (status: Boolean) -> Unit
+        ) {
+            BillingManager.openPlayStoreSubscription(
+                this@MicroCommunityActivity,
+                inAppSkuId,
+                packageName
+            )
+        }
+
+        override fun onUpgradeSubscriptionList(
+            inAppSkuId: String,
+            paymentMethod: PaymentMethod,
+            onNotifyPriceResult: (Map<String, SubscriptionDetails?>, String) -> Unit
+        ) {
+            if (PaymentMethod.SUBSCRIPTION_PLAN == paymentMethod) {
+                BillingManager.fetchPricePartsForSkus(
+                    activity = this@MicroCommunityActivity,
+                    skuIds = listOf(inAppSkuId),
+                    productType = BillingClient.ProductType.SUBS
+                ) { resultMap ->
+                    BillingManager.getActiveBasePlanId(inAppSkuId) { _ ->
+
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    private fun rewardedInterstitialAd(
+        adId: String,
+        platformName: String,
+        seriesId: String?,
+        onNotifyAdsResult: (AdsStatus) -> Unit
+    ) {
+        RewardedInterstitialManager.load(context = this, adUnitId = adId, onLoaded = {
+            RewardedInterstitialManager.show(
+                activity = this,
+                adId = adId,
+                onReward = { _ -> },
+                onClosed = {
+                    onNotifyAdsResult.invoke(AdsStatus.AdsSuccess)
+                },
+                onFailed = { error ->
+                    onNotifyAdsResult.invoke(AdsStatus.AdsFailed)
+                },
+            )
+        }, onFailed = { _ ->
+            onNotifyAdsResult.invoke(AdsStatus.AdsFailed)
+        })
+    }
+
+    private fun fetchPricePartsForSkus(
+        inAppSkuId: List<String>,
+        productType: String,
+        onNotifyPriceResult: (Map<String, Any?>) -> Unit
+    ) {
+        BillingManager.fetchPricePartsForSkus(
+            activity = this, skuIds = inAppSkuId, productType = productType
+        ) { resultMap ->
+
+            runOnUiThread {
+                // Directly return to callback
+                onNotifyPriceResult(resultMap)
+            }
+        }
+    }
+
+    private fun callBillingManager(
+        skuId: String?,
+        basePlanId: String?,
+        paymentUrl: String?,
+        seriesId: String?,
+        packageId: String?,
+        userId: String?,
+        paymentMethod: PaymentMethod,
+        onNotifyPaymentResult: (PaymentStatus, String, String, PaymentMethod) -> Unit
+    ) {
+        BillingManager.init(
+            activity = this,
+            skuId = skuId.orEmpty(),
+            basePlanId = basePlanId.orEmpty(),
+            seriesId = seriesId,
+            paymentUrl = paymentUrl,
+            packageId = packageId,
+            productType = BillingClient.ProductType.SUBS,
+            userId = userId.toString(),
+            paymentMethod,
+            onNotifyPaymentResult,
+        )
+
+    }
+
+    private fun callBillingManagerForSubscription(
+        skuId: String?,
+        basePlanId: String?,
+        paymentUrl: String?,
+        seriesId: String?,
+        packageId: String?,
+        userId: String?,
+        paymentMethod: PaymentMethod,
+        onNotifyPaymentResult: (PaymentStatus, String, String, PaymentMethod) -> Unit
+    ) {
+        BillingManager.init(
+            activity = this,
+            skuId = skuId.toString(),
+            basePlanId = basePlanId.orEmpty(),
+            seriesId = seriesId,
+            paymentUrl = paymentUrl,
+            packageId = packageId,
+            productType = BillingClient.ProductType.SUBS,
+            userId = userId.toString(),
+            paymentMethod = paymentMethod,
+            onNotifyPaymentResult
+        )
     }
 }

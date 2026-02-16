@@ -55,4 +55,6 @@ dependencies {
     implementation(libs.shopify.checkout)
     implementation(libs.shopify.buy3)
     implementation(libs.timber)
+    implementation libs.play.services.ads.api
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
 }

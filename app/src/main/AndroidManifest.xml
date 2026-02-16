@@ -14,9 +14,7 @@
         android:theme="@style/Theme.GluedinSimple"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
-        <activity
-            android:name=".java.MicroCommunityActivityJava"
-            android:exported="false" />
+
         <activity
             android:name=".MicroCommunityActivity"
             android:exported="true" />
@@ -40,21 +38,10 @@
             android:exported="false"
             android:theme="@style/plus_saw_presentation_PlusSawTheme" />
 
-        <activity
-            android:name=".java.shopify.WebViewActivityJava"
-            android:exported="false"
-            android:theme="@style/plus_saw_presentation_PlusSawTheme" />
-        <activity
-            android:name=".java.shopify.ViewCartActivityJava"
-            android:exported="false"
-            android:theme="@style/plus_saw_presentation_PlusSawTheme" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--            android:value="set_your_id_here" />-->
 
-
-        <activity
-            android:name=".java.MainActivityJava"
-            android:exported="true">
-
-        </activity>
     </application>
 
 </manifest>

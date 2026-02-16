@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shimmer_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gi_black"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/gi_dp54"
+        android:layout_marginTop="@dimen/gi_dp48"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_shimmer_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gi_dp12"
+            android:paddingEnd="@dimen/gi_dp10"
+            android:paddingBottom="@dimen/gi_dp10"
+            android:src="@drawable/plus_saw_feed_back_button"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shimmer_description"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/gi_dp32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/shimmer_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/gi_dp45"
+            android:layout_marginStart="@dimen/gi_dp12"
+            android:layout_marginBottom="@dimen/gi_dp42"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gluedin_feed_shimmer_bg"
+                android:backgroundTint="@color/gi_gray_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/gi_dp25"
+            android:layout_marginStart="@dimen/gi_dp12"
+            android:layout_marginBottom="@dimen/gi_dp10"
+            app:layout_constraintBottom_toTopOf="@+id/shimmer1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gluedin_feed_shimmer_bg"
+                android:backgroundTint="@color/gi_gray_medium" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/gi_dp25"
+            android:layout_marginStart="@dimen/gi_dp10"
+            app:layout_constraintBottom_toBottomOf="@+id/shimmer4"
+            app:layout_constraintStart_toEndOf="@+id/shimmer4"
+            app:layout_constraintTop_toTopOf="@+id/shimmer4"
+            app:layout_constraintWidth_percent="0.5">
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gluedin_feed_shimmer_bg"
+                android:backgroundTint="@color/gi_gray_medium" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer4"
+            android:layout_width="@dimen/gi_dp40"
+            android:layout_height="@dimen/gi_dp40"
+            android:layout_marginStart="@dimen/gi_dp12"
+            android:layout_marginBottom="@dimen/gi_dp6"
+            app:layout_constraintBottom_toTopOf="@+id/shimmer2"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gluedin_feed_shimmer_menu_bg"
+                android:backgroundTint="@color/gi_gray_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shimmer_menu"
+        android:layout_width="@dimen/gi_dp45"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/gi_dp20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/menu_shimmer1"
+            layout="@layout/gluedin_feed_menu_shimmer"
+            android:layout_width="@dimen/gi_dp32"
+            android:layout_height="@dimen/gi_dp32"
+            android:layout_marginBottom="@dimen/gi_dp42"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/menu_shimmer2"
+            layout="@layout/gluedin_feed_menu_shimmer"
+            android:layout_width="@dimen/gi_dp32"
+            android:layout_height="@dimen/gi_dp32"
+            android:layout_marginBottom="@dimen/gi_dp28"
+            app:layout_constraintBottom_toTopOf="@+id/menu_shimmer1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/menu_shimmer3"
+            layout="@layout/gluedin_feed_menu_shimmer"
+            android:layout_width="@dimen/gi_dp32"
+            android:layout_height="@dimen/gi_dp32"
+            android:layout_marginBottom="@dimen/gi_dp28"
+            app:layout_constraintBottom_toTopOf="@+id/menu_shimmer2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/menu_shimmer4"
+            layout="@layout/gluedin_feed_menu_shimmer"
+            android:layout_width="@dimen/gi_dp32"
+            android:layout_height="@dimen/gi_dp32"
+            android:layout_marginBottom="@dimen/gi_dp28"
+            app:layout_constraintBottom_toTopOf="@+id/menu_shimmer3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/menu_shimmer5"
+            layout="@layout/gluedin_feed_menu_shimmer"
+            android:layout_width="@dimen/gi_dp32"
+            android:layout_height="@dimen/gi_dp32"
+            android:layout_marginBottom="@dimen/gi_dp28"
+            app:layout_constraintBottom_toTopOf="@+id/menu_shimmer4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

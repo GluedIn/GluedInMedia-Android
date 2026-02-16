@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/plus_feed_ads_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <FrameLayout
+            android:id="@+id/ad_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/skippable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gi_dp16"
+            android:layout_marginTop="@dimen/gi_dp50"
+            android:layout_marginEnd="@dimen/gi_dp16"
+            android:background="@drawable/gluedin_feed_skip_bg"
+            android:paddingStart="@dimen/gi_dp12"
+            android:paddingTop="@dimen/gi_dp8"
+            android:paddingEnd="@dimen/gi_dp12"
+            android:paddingBottom="@dimen/gi_dp8"
+            android:visibility="gone"
+            ads:layout_constraintTop_toTopOf="parent"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.gluedin.base.presentation.customView.PlusSAWMediumTextView
+                android:id="@+id/skippable_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gi_dp16"
+                android:alpha=".5"
+                android:maxLines="@integer/plus_saw_presentation_line_1"
+                android:text="@string/gluedin_feed_skip_ad"
+                android:textColor="@color/gi_text_hint_color"
+                android:textSize="@dimen/gi_sp14"
+                ads:layout_constraintEnd_toStartOf="@+id/skippable_count"
+                ads:layout_constraintTop_toTopOf="parent"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.gluedin.base.presentation.customView.PlusSAWMediumTextView
+                android:id="@+id/skippable_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gi_dp4"
+                android:maxLines="@integer/plus_saw_presentation_line_1"
+                android:text="01"
+                android:textColor="@color/gi_text_white_color"
+                android:textSize="@dimen/gi_sp14"
+                ads:layout_constraintStart_toEndOf="@+id/skippable_text"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/plus_saw_feed_gradient_bg"
+            ads:layout_constraintTop_toTopOf="@+id/plus_saw_feed_start_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/plus_saw_feed_start_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/gi_dp20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/plus_saw_feed_user_profile"
+                android:layout_width="@dimen/gi_dp34"
+                android:layout_height="@dimen/gi_dp34"
+                android:layout_marginStart="@dimen/gi_dp12"
+                android:visibility="gone"
+                ads:roundingBorderColor="@color/gi_white"
+                ads:roundingBorderWidth="@dimen/gi_dp1"
+                app:actualImageScaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholderImage="@drawable/plus_saw_presentation_default_profile"
+                app:placeholderImageScaleType="fitXY"
+                app:roundAsCircle="true" />
+
+            <com.gluedin.base.presentation.customView.PlusSAWRegularTextView
+                android:id="@+id/gam_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gi_dp8"
+                android:layout_marginEnd="@dimen/gi_dp8"
+                android:includeFontPadding="false"
+                android:maxLines="@integer/plus_saw_presentation_line_1"
+                android:textColor="@color/gi_white"
+                android:textSize="@dimen/gi_sp14"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/plus_saw_feed_user_profile"
+                app:layout_constraintTop_toTopOf="@+id/plus_saw_feed_user_profile"
+                tools:text="User Name" />
+
+            <com.gluedin.base.presentation.customView.PlusSAWRegularTextView
+                android:id="@+id/gam_sponsored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:maxLines="@integer/plus_saw_presentation_line_1"
+                android:text="Sponsored"
+                android:textColor="@color/gi_text_hint_color"
+                android:textSize="@dimen/gi_sp14"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/gam_name"
+                app:layout_constraintTop_toBottomOf="@+id/gam_name" />
+
+            <com.gluedin.base.presentation.customView.PlusSAWRegularTextView
+                android:id="@+id/gam_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gi_dp10"
+                android:layout_marginTop="@dimen/gi_dp8"
+                android:layout_marginEnd="@dimen/gi_dp12"
+                android:includeFontPadding="false"
+                android:lineHeight="@dimen/gi_sp18"
+                android:maxLines="1"
+                android:textAlignment="textStart"
+                android:textColor="@color/gi_white"
+                android:textSize="@dimen/gi_sp14"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gam_sponsored"
+                tools:text="Pantene Pro-V formula." />
+
+
+            <com.gluedin.base.presentation.customView.PlusSAWRegularTextView
+                android:id="@+id/gam_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gi_dp10"
+                android:layout_marginTop="@dimen/gi_dp8"
+                android:layout_marginEnd="@dimen/gi_dp12"
+                android:includeFontPadding="false"
+                android:textAlignment="viewStart"
+                android:textColor="@color/gi_text_hint_color"
+                android:textSize="@dimen/gi_sp12"
+                ads:lineHeight="@dimen/gi_dp18"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gam_title"
+                tools:text="Description" />
+
+            <com.gluedin.base.presentation.customView.PlusSAWMediumTextView
+                android:id="@+id/gam_product_action_btn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/gi_dp34"
+                android:layout_margin="@dimen/gi_dp12"
+                android:layout_marginBottom="@dimen/gi_dp10"
+                android:background="@drawable/gluedin_gam_ad_button_transaparent_bg"
+                android:gravity="center"
+                android:textColor="@color/gi_white"
+                android:textSize="@dimen/gi_sp16"
+                android:visibility="visible"
+                ads:layout_constraintTop_toBottomOf="@+id/gam_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Shop Now" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/ad_click_area"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/gi_dp52"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/plus_feed_ads_view_last"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/gi_dp1"
+            android:background="@color/gi_view_tertiary_color"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/plus_saw_feed_play"
+            android:layout_width="@dimen/gi_dp64"
+            android:layout_height="@dimen/gi_dp64"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/plus_saw_feed_ic_vertical_play"
+            tools:ignore="VectorDrawableCompat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

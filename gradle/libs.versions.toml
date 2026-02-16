@@ -10,12 +10,13 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 fresco = "3.2.0"
-gluedin = "5.7.0.0"
+gluedin = "6.0.0.0"
 navigation = "2.7.7"
 billing = "8.0.0"
 shopify-checkout = "3.5.0"
 shopify-buy3 = "2025.4.1"
 timber = "4.7.1"
+playServicesAdsApi = "24.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,7 @@ billing = { module = "com.android.billingclient:billing", version.ref = "billing
 shopify-checkout = { module = "com.shopify:checkout-sheet-kit", version.ref = "shopify-checkout" }
 shopify-buy3 = { module = "com.shopify.mobilebuysdk:buy3", version.ref = "shopify-buy3" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+play-services-ads-api = { group = "com.google.android.gms", name = "play-services-ads-api", version.ref = "playServicesAdsApi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
