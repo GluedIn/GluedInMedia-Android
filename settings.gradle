@@ -23,7 +23,7 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/plussaw/GluedIn")
             credentials {
                 username = "plussaw"
-                password = "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"
+                password = "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"
             }
         }
     }
