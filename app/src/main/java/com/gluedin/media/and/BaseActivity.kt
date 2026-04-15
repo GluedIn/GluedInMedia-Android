@@ -102,6 +102,10 @@ abstract class BaseActivity : AppCompatActivity() {
                     if (mSDKInitStatus.value) {
                         init()
                     }
+                    else {
+                        Timber.d("%s%s", "Failed to load the GluedInSDK: " + mSDKInitStatus.value + ", ", mSDKInitStatus.name)
+                        Toast.makeText(this@BaseActivity, "SDK Init Failed. Use the correct API & Secret to initialise the SDK", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 SDKInitStatus.SDK_EXIT -> {
